@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dvizh Odessa</title>
+  <link rel="icon" type="image/png" href="data/dvizh_odessa.png">
   <link href="https://fonts.googleapis.com/css2?family=Russo+One&family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
@@ -329,22 +330,24 @@
       color: var(--primary);
     }
 
-    .soon {
+    .buy-btn {
       display: inline-block;
       margin-top: auto;
-      padding: 10px 20px;
+      padding: 12px 25px;
       border: 2px solid var(--primary);
       border-radius: 30px;
-      font-size: 0.9rem;
+      font-size: 1rem;
       font-weight: bold;
       color: var(--primary);
       background: rgba(0,0,0,0.3);
       transition: var(--transition);
+      cursor: pointer;
     }
 
-    .merch-item:hover .soon {
+    .buy-btn:hover {
       background: var(--primary);
       color: var(--text-dark);
+      transform: translateY(-3px);
     }
 
     .socials ul {
@@ -478,6 +481,136 @@
       transform: scale(1.2);
     }
 
+    /* Модальное окно заказа */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(5px);
+      overflow-y: auto;
+    }
+
+    .modal-content {
+      background: var(--card-bg);
+      margin: 5% auto;
+      padding: 30px;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 0 30px rgba(245,200,66,0.3);
+      position: relative;
+      animation: modalFadeIn 0.3s;
+    }
+
+    @keyframes modalFadeIn {
+      from { opacity: 0; transform: translateY(-50px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .close-modal {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 28px;
+      font-weight: bold;
+      color: var(--primary);
+      cursor: pointer;
+    }
+
+    .close-modal:hover {
+      color: var(--accent);
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 15px;
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 8px;
+      background: rgba(0,0,0,0.3);
+      color: var(--text-light);
+      font-family: 'Roboto', sans-serif;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .submit-btn {
+      background: var(--primary);
+      color: var(--text-dark);
+      border: none;
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .submit-btn:hover {
+      background: #e6b635;
+      transform: translateY(-2px);
+    }
+
+    /* Окно подтверждения заказа */
+    .confirmation {
+      text-align: center;
+      padding: 30px;
+    }
+
+    .confirmation h3 {
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .confirmation p {
+      margin-bottom: 10px;
+    }
+
+    .order-number {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: var(--primary);
+      margin: 20px 0;
+    }
+
+    .telegram-link {
+      display: inline-block;
+      background: #0088cc;
+      color: white;
+      padding: 12px 25px;
+      border-radius: 8px;
+      margin-top: 20px;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .telegram-link:hover {
+      background: #006da3;
+      transform: translateY(-2px);
+    }
+
     footer {
       text-align: center;
       padding: 40px 5%;
@@ -602,6 +735,12 @@
 
       .slide-content h3 {
         font-size: 1.2rem;
+      }
+
+      .modal-content {
+        margin: 10% auto;
+        width: 95%;
+        padding: 20px;
       }
     }
 
@@ -754,17 +893,17 @@
       <div class="merch-item">
         <img class="merch-img" src="data/tshirt.png" alt="Футболки">
         <h3 data-lang="merch-1">Футболки</h3>
-        <span class="soon" data-lang="soon">Скоро в продаже</span>
+        <button class="buy-btn" onclick="openOrderModal('Футболка Dvizh Odessa', 1999)">Купить</button>
       </div>
       <div class="merch-item">
         <img class="merch-img" src="data/hoodie.png" alt="Худи">
         <h3 data-lang="merch-2">Худи</h3>
-        <span class="soon" data-lang="soon">Скоро в продаже</span>
+        <button class="buy-btn" onclick="openOrderModal('Худи Dvizh Odessa', 3499)">Купить</button>
       </div>
       <div class="merch-item">
         <img class="merch-img" src="data/sticker.jpg" alt="Стикеры">
         <h3 data-lang="merch-3">Стикеры</h3>
-        <span class="soon" data-lang="soon">Скоро в продаже</span>
+        <button class="buy-btn" onclick="openOrderModal('Набор стикеров Dvizh Odessa', 299)">Купить</button>
       </div>
     </div>
   </section>
@@ -781,6 +920,88 @@
   <footer>
     <p>© 2025 Движ Одесса | <span data-lang="footer">Сделано с любовью в Одессе</span> ⚓</p>
   </footer>
+
+  <!-- Модальное окно заказа -->
+  <div id="orderModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" onclick="closeModal()">&times;</span>
+      <h2>Оформление заказа</h2>
+      <form id="orderForm">
+        <input type="hidden" id="productName">
+        <input type="hidden" id="productPrice">
+        
+        <div class="form-group">
+          <label for="product">Товар:</label>
+          <input type="text" id="productDisplay" readonly>
+        </div>
+        
+        <div class="form-group">
+          <label for="size">Размер (если применимо):</label>
+          <select id="size">
+            <option value="">Выберите размер</option>
+            <option value="XS">XS</option>
+            <option value="S">S</option>
+            <option value="M">M</option>
+            <option value="L">L</option>
+            <option value="XL">XL</option>
+            <option value="XXL">XXL</option>
+          </select>
+        </div>
+        
+        <div class="form-group">
+          <label for="telegram">Ваш Telegram (например, @username):</label>
+            <input type="text" id="telegram" placeholder="@username">
+        </div>
+
+        <div class="form-group">
+          <label for="quantity">Количество:</label>
+          <input type="number" id="quantity" min="1" value="1" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="name">Ваше имя:</label>
+          <input type="text" id="name" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="phone">Телефон:</label>
+          <input type="tel" id="phone" required>
+        </div>
+        
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input type="email" id="email">
+        </div>
+        
+        <div class="form-group">
+          <label for="address">Адрес доставки:</label>
+          <textarea id="address" rows="3" required></textarea>
+        </div>
+        
+        <div class="form-group">
+          <label for="comments">Комментарий к заказу:</label>
+          <textarea id="comments" rows="3"></textarea>
+        </div>
+        
+        <button type="submit" class="submit-btn">Оформить заказ</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Окно подтверждения заказа -->
+  <div id="confirmationModal" class="modal">
+    <div class="modal-content confirmation">
+      <h3>Заказ оформлен!</h3>
+      <p>Ваш заказ успешно принят в обработку.</p>
+      <p>Номер вашего заказа:</p>
+      <div class="order-number" id="orderNumber"></div>
+      <p>С вами свяжется наш менеджер для уточнения деталей.</p>
+      <p>Или вы можете написать нам напрямую:</p>
+      <a href="https://t.me/dv1zhOdesa" class="telegram-link" target="_blank">
+        <i class="fab fa-telegram"></i> Написать в Telegram
+      </a>
+    </div>
+  </div>
 
   <script>
     // Мобильное меню
@@ -836,25 +1057,6 @@
       }
     });
     
-    // Анимации при прокрутке
-    const observerOptions = {
-      root: null,
-      rootMargin: '0px',
-      threshold: 0.1
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('animate');
-        }
-      });
-    }, observerOptions);
-    
-    document.querySelectorAll('section').forEach(section => {
-      observer.observe(section);
-    });
-    
     // Галерея с каруселью
     let currentSlide = 0;
     const slides = document.querySelectorAll('.gallery-slide');
@@ -862,15 +1064,17 @@
     const dotsContainer = document.getElementById('gallery-dots');
     
     // Создаем точки навигации
-    slides.forEach((_, i) => {
-      const dot = document.createElement('div');
-      dot.classList.add('gallery-dot');
-      if (i === 0) dot.classList.add('active');
-      dot.addEventListener('click', () => {
-        goToSlide(i);
+    if (dotsContainer) {
+      slides.forEach((_, i) => {
+        const dot = document.createElement('div');
+        dot.classList.add('gallery-dot');
+        if (i === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => {
+          goToSlide(i);
+        });
+        dotsContainer.appendChild(dot);
       });
-      dotsContainer.appendChild(dot);
-    });
+    }
     
     function goToSlide(n) {
       currentSlide = n;
@@ -883,143 +1087,158 @@
     }
     
     function updateCarousel() {
-      carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
-      
-      // Обновляем активную точку
-      document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
-        dot.classList.toggle('active', i === currentSlide);
-      });
+      if (carousel) {
+        carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Обновляем активную точку
+        document.querySelectorAll('.gallery-dot').forEach((dot, i) => {
+          dot.classList.toggle('active', i === currentSlide);
+        });
+      }
     }
     
     // Автопрокрутка галереи
-    let slideInterval = setInterval(() => {
-      moveSlide(1);
-    }, 5000);
-    
-    // Останавливаем автопрокрутку при наведении
-    const galleryContainer = document.querySelector('.gallery-container');
-    galleryContainer.addEventListener('mouseenter', () => {
-      clearInterval(slideInterval);
-    });
-    
-    galleryContainer.addEventListener('mouseleave', () => {
+    let slideInterval;
+    if (slides.length > 0) {
       slideInterval = setInterval(() => {
         moveSlide(1);
       }, 5000);
-    });
-    
-    // Переключение языков
-    const languageButtons = document.querySelectorAll('.language-btn');
-    let currentLanguage = 'ru';
-    
-    // Тексты для разных языков
-    const translations = {
-      ru: {
-        'about': 'Кто мы',
-        'history': 'История',
-        'gallery': 'Галерея',
-        'merch': 'Наш мерч',
-        'socials': 'Мы в соцсетях',
-        'title': 'DVIZH ODESSA ⚓',
-        'subtitle': 'Тусовка, море и вайб на весь город',
-        'about-text': 'Мы — настоящая одесская движуха. Солнце, море, друзья и бесконечный вайб. Мы объединяем людей, которые любят музыку, свободу и атмосферу родного города. Наши мероприятия проходят в лучших локациях Одессы, где царит неповторимая атмосфера единства и веселья.',
-        'history-text': 'Всё началось с вечеринок у Чёрного моря и маленьких встреч на Потёмкинской лестнице. Сегодня это целое комьюнити: концерты, тусовки и стиль, вдохновлённый энергией Макса Коржа и духом Одессы. За годы существования мы организовали более 50 мероприятий, собравших тысячи единомышленников.',
-        'gallery-item-1': 'Вечеринка на пляже',
-        'gallery-item-2': 'Концерт у моря',
-        'gallery-item-3': 'Закат с музыкой',
-        'gallery-item-4': 'Ночная тусовка',
-        'gallery-item-5': 'DJ сет на набережной',
-        'gallery-desc-1': 'Зажигательная вечеринка на берегу моря с диджеями и барбекю',
-        'gallery-desc-2': 'Живые выступления местных групп на открытом воздухе',
-        'gallery-desc-3': 'Романтические вечера с акустическими выступлениями на закате',
-        'gallery-desc-4': 'Энергичные ночные вечеринки до самого утра',
-        'gallery-desc-5': 'Лучшие диджеи города играют на знаменитой одесской набережной',
-        'merch-1': 'Футболки',
-        'merch-2': 'Худи',
-        'merch-3': 'Флэши',
-        'soon': 'Скоро в продаже',
-        'footer': 'Сделано с любовью в Одессе'
-      },
-      ua: {
-        'about': 'Хто ми',
-        'history': 'Історія',
-        'gallery': 'Галерея',
-        'merch': 'Наш мерч',
-        'socials': 'Ми в соцмережах',
-        'title': 'DVIZH ODESSA ⚓',
-        'subtitle': 'Тусовки, море та вайб на все місто',
-        'about-text': 'Ми — справжній одеситський рух. Сонце, море, друзі та нескінченний вайб. Ми об\'єднуємо людей, які люблять музику, свободу та атмосферу рідного міста. Наші заходи проходять у найкращих локаціях Одеси, де панує неповторна атмосфера єдності та веселощів.',
-        'history-text': 'Все почалося з вечірок біля Чорного моря та маленьких зустрічей на Потьомкінських сходах. Сьогодні це ціле ком\'юніті: концерти, тусовки та стиль, натхненний енергією Макса Коржа та духом Одеси. За роки існування ми організували понад 50 заходів, які зібрали тисячі однодумців.',
-        'gallery-item-1': 'Вечірка на пляжі',
-        'gallery-item-2': 'Концерт біля моря',
-        'gallery-item-3': 'Захід сонця з музикою',
-        'gallery-item-4': 'Нічна тусовка',
-        'gallery-item-5': 'DJ сет на набережній',
-        'gallery-desc-1': 'Запальна вечірка на березі моря з діджеями та барбекю',
-        'gallery-desc-2': 'Живі виступи місцевих груп на відкритому повітрі',
-        'gallery-desc-3': 'Романтичні вечори з акустичними виступами на заході сонця',
-        'gallery-desc-4': 'Енергійні нічні вечірки до самого ранку',
-        'gallery-desc-5': 'Найкращі діджеї міста грають на знаменитій одеській набережній',
-        'merch-1': 'Футболки',
-        'merch-2': 'Худі',
-        'merch-3': 'Флешки',
-        'soon': 'Скоро у продажу',
-        'footer': 'Зроблено з любов\'ю в Одесі'
-      },
-      en: {
-        'about': 'About us',
-        'history': 'History',
-        'gallery': 'Gallery',
-        'merch': 'Our merch',
-        'socials': 'Social media',
-        'title': 'DVIZH ODESSA ⚓',
-        'subtitle': 'Parties, sea and vibes for the whole city',
-        'about-text': 'We are a real Odessa movement. Sun, sea, friends and endless vibes. We unite people who love music, freedom and the atmosphere of their hometown. Our events take place in the best locations of Odessa, where a unique atmosphere of unity and fun reigns.',
-        'history-text': 'It all started with parties by the Black Sea and small meetings on the Potemkin Stairs. Today it is a whole community: concerts, parties and style inspired by the energy of Max Korzh and the spirit of Odessa. Over the years, we have organized more than 50 events that have gathered thousands of like-minded people.',
-        'gallery-item-1': 'Beach party',
-        'gallery-item-2': 'Concert by the sea',
-        'gallery-item-3': 'Sunset with music',
-        'gallery-item-4': 'Night party',
-        'gallery-item-5': 'DJ set on the embankment',
-        'gallery-desc-1': 'An incendiary party on the seashore with DJs and barbecue',
-        'gallery-desc-2': 'Live performances by local bands in the open air',
-        'gallery-desc-3': 'Romantic evenings with acoustic performances at sunset',
-        'gallery-desc-4': 'Energetic night parties until the morning',
-        'gallery-desc-5': 'The best DJs of the city play on the famous Odessa embankment',
-        'merch-1': 'T-shirts',
-        'merch-2': 'Hoodies',
-        'merch-3': 'Flasks',
-        'soon': 'Coming soon',
-        'footer': 'Made with love in Odessa'
-      }
-    };
-    
-    languageButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const lang = button.getAttribute('data-lang');
-        changeLanguage(lang);
-        
-        // Обновление активной кнопки
-        languageButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-      });
-    });
-    
-    function changeLanguage(lang) {
-      currentLanguage = lang;
-      const elements = document.querySelectorAll('[data-lang]');
       
-      elements.forEach(element => {
-        const key = element.getAttribute('data-lang');
-        if (translations[lang][key]) {
-          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-            element.placeholder = translations[lang][key];
-          } else {
-            element.textContent = translations[lang][key];
-          }
-        }
-      });
+      // Останавливаем автопрокрутку при наведении
+      const galleryContainer = document.querySelector('.gallery-container');
+      if (galleryContainer) {
+        galleryContainer.addEventListener('mouseenter', () => {
+          clearInterval(slideInterval);
+        });
+        
+        galleryContainer.addEventListener('mouseleave', () => {
+          slideInterval = setInterval(() => {
+            moveSlide(1);
+          }, 5000);
+        });
+      }
     }
+    
+    // Система заказов
+    function openOrderModal(productName, productPrice) {
+      document.getElementById('productName').value = productName;
+      document.getElementById('productPrice').value = productPrice;
+      document.getElementById('productDisplay').value = productName + ' - ' + productPrice + ' руб.';
+      document.getElementById('orderModal').style.display = 'block';
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      document.getElementById('orderModal').style.display = 'none';
+      document.getElementById('confirmationModal').style.display = 'none';
+      document.body.style.overflow = 'auto';
+      document.getElementById('orderForm').reset();
+    }
+    
+    // Генерация случайного номера заказа
+    function generateOrderNumber() {
+      return 'DV-' + Math.floor(100000 + Math.random() * 900000);
+    }
+    
+async function sendToTelegram(orderData) {
+  const botToken = '7861292995:AAFy5-Esd4Y6mCw1aNAkYje0d0Fc0o8kCN0';
+  const chatId = '460923224';
+  
+  const message = `Новый заказ! №${orderData.orderNumber}
+Товар: ${orderData.product}
+Размер: ${orderData.size || 'не указан'}
+Количество: ${orderData.quantity}
+Имя: ${orderData.name}
+Телефон: ${orderData.phone}
+Email: ${orderData.email || 'не указан'}
+Адрес: ${orderData.address}
+Telegram: ${orderData.telegram || 'не указан'}
+Комментарий: ${orderData.comments || 'нет'}`;
+  
+  const replyMarkup = orderData.telegram ? {
+    inline_keyboard: [[
+      {
+        text: "Связаться с клиентом",
+        url: `https://t.me/${orderData.telegram.replace('@', '')}`
+      }
+    ]]
+  } : null;
+  
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        chat_id: chatId,
+        text: message,
+        parse_mode: 'HTML',
+        reply_markup: replyMarkup
+      })
+    });
+    
+    return response.ok;
+  } catch (error) {
+    console.error('Ошибка отправки в Telegram:', error);
+    return false;
+  }
+}
+    
+    // Обработка формы заказа
+    document.getElementById('orderForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const orderNumber = generateOrderNumber();
+      const orderData = {
+          orderNumber: orderNumber,
+          product: document.getElementById('productName').value,
+          size: document.getElementById('size').value,
+          quantity: document.getElementById('quantity').value,
+          name: document.getElementById('name').value,
+          phone: document.getElementById('phone').value,
+          email: document.getElementById('email').value,
+          address: document.getElementById('address').value,
+          comments: document.getElementById('comments').value,
+          telegram: document.getElementById('telegram').value // Новое поле
+};
+      
+      // Показываем индикатор загрузки
+      const submitBtn = this.querySelector('.submit-btn');
+      const originalText = submitBtn.textContent;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Отправка...';
+      submitBtn.disabled = true;
+      
+      // Отправляем данные в Telegram
+      const success = await sendToTelegram(orderData);
+      
+      if (success) {
+        // Показываем подтверждение
+        document.getElementById('orderNumber').textContent = orderNumber;
+        document.getElementById('orderModal').style.display = 'none';
+        document.getElementById('confirmationModal').style.display = 'block';
+      } else {
+        alert('Произошла ошибка при отправке заказа. Пожалуйста, попробуйте еще раз или свяжитесь с нами напрямую.');
+      }
+      
+      // Восстанавливаем кнопку
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    });
+    
+    // Закрытие модальных окон при клике вне их области
+    window.addEventListener('click', function(event) {
+      const orderModal = document.getElementById('orderModal');
+      const confirmationModal = document.getElementById('confirmationModal');
+      
+      if (event.target === orderModal) {
+        closeModal();
+      }
+      
+      if (event.target === confirmationModal) {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>
